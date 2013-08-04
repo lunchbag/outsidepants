@@ -12,17 +12,24 @@ class FoundItemsController < ApplicationController
   end
 
   def create
-    @found_item = FoundItem.create(params[:found_item])
+    @found_item = FoundItem.new(params[:found_item])
     @found_item.keywords = convert_keyword_string_to_array(@found_item.keywords)
     @found_item.claimed_status = false
     @found_item.created_at = Time.now
+
+    latest = FoundItem.last
+    if latest.nil?
+      @found_item.item_id = 308
+    else
+      @found_item.item_id = latest.item_id.to_i + 1
+    end
 
     if @found_item.save
       # respond_to do |format|
       #   format.html
       # end
-      #redirect_to twilio_found_url(:found_item => @found_item)
-      redirect_to root_url
+      redirect_to twilio_found_url(:found_item => @found_item)
+      # redirect_to root_url
     else
       redirect_to root_url
     end
