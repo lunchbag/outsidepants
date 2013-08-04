@@ -41,8 +41,9 @@ class FoundItem
     array_of_matched_items = []
     self.where(product: product).each do |found_item|
       # unless (keywords & found_item.keywords).empty?
-        item_text = 'Found: ' + found_item.product + ', ' + found_item.description # + ' at ' + found_item.location_found
-        puts item_text
+        # item_text = 'Found: ' + found_item.product + ', ' + found_item.description # + ' at ' + found_item.location_found
+        item_text = "FOUND " + found_item.product.upcase + "(" + found_item.description + ")" + " @" + found_item.location_found + ", now @ " + found_item.current_location
+        # puts item_text
         array_of_matched_items.push(item_text)
       # end
     end
