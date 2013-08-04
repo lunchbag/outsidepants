@@ -17,9 +17,10 @@ class FoundItemsController < ApplicationController
     @found_item.claimed_status = false
     @found_item.created_at = Time.now
     if @found_item.save
-      respond_to do |format|
-        format.html
-      end
+      # respond_to do |format|
+      #   format.html
+      # end
+      redirect_to twilio_url
     else
       redirect_to found_items_url
     end
