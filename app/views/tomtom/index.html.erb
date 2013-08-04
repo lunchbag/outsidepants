@@ -15,7 +15,7 @@
 <script type="text/javascript">
 (function(){
   if (Modernizr.geolocation) {
-  	$("#status-message").html("Geolocation detected!");
+  	$("#status-message").html("Geolocation detected! Working on getting your current location.");
     navigator.geolocation.getCurrentPosition(show_map);
   } else {
   	$("#status-message").html("Geolocation not available. Please enable it!");
@@ -24,7 +24,7 @@
 
 	function show_map(position) {
 		
-  	$("#status-message").html("Getting your current location!");
+  	$("#status-message").html("Got your current location!");
 	  var latitude = position.coords.latitude;
 	  var longitude = position.coords.longitude;
   	$("#status-message").html("Location detected! Please wait..");
