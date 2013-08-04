@@ -65,16 +65,17 @@ class TwilioController < ApplicationController
 		if body.start_with?("assist")
 			puts "ASSIST"
 			response = ""
-			temp = "" + body
-			temp.slice! "assist"
-			temp.strip!
+			#temp = "" + body
+			#temp.slice! "assist"
+			#temp.strip!
 
 			# If just one word, respond with help text.
-			if body.eql? "assist"
-				response << "Please use the following format: LOST <CATEGORY>: <KEYWORD>, <KEYWORD>.."
-				response << " Categories: Phone, Wallet, Bag, Camera, Keys, Cards, Misc."
-				response << " ASSIST <CATEGORY> for suggested keywords."
-			elsif PRODUCTS.include?(temp)
+			#if body.eql? "assist"
+			response << "Please use the following format: LOST <CATEGORY>" #: <KEYWORD>, <KEYWORD>.."
+			response << " Categories: Phone, Wallet, Bag, Camera, Keys, Cards, Misc."
+				#response << " ASSIST <CATEGORY> for suggested keywords."
+=begin
+				elsif PRODUCTS.include?(temp)
 				# Return popular keywords for that product.
 				case temp
 				when "phone"
@@ -95,7 +96,9 @@ class TwilioController < ApplicationController
 			else
 				response << "Sorry, we were unable to understand your request. Try 'ASSIST <Category>'. "
 				response << "Categories: Phone, Wallet, Bag, Camera, Keys, Cards, Misc."
-			end
+=end
+
+			#end
 			send_sms(sender, response)
 		elsif body.start_with?("info")
 			body.slice! "info"

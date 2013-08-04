@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def convert_keyword_string_to_array(keyword_string)
-		keyword_array = keyword_string.delete(' ').downcase.split(',')
+		#keyword_array = keyword_string.delete(' ').downcase.split(',')
 	end
 
 	private
