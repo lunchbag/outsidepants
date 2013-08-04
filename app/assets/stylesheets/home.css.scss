@@ -58,6 +58,21 @@ div#container {
 			margin-left: 20px;
 		}
 	}
+	table.donate-table {
+		width: 100%;
+		margin-top: 20px;
+		td {
+			padding: 8px;
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+		}
+		input[type=text] {
+			width: 50px;
+		}
+		button {
+			padding: 8px;
+		}
+	}
 	table.item-table {
 		width: 100%;
 		thead {
