@@ -7,8 +7,12 @@ class TwilioController < ApplicationController
 		body = params[:Body]
 		sender = params[:From]
 
+		puts "sender: " + sender
+		puts "body: " + body
+
 		# Parse the inbound SMS.
 		# Auto respond to sender.
 		# Insert into model.
+		render :file => 'app/views/twilio/index.html'
 	end
 end
