@@ -39,9 +39,13 @@ class TwilioController < ApplicationController
 		product = FoundItem.find(params[:found_item]).product
 		description = FoundItem.find(params[:found_item]).description
 		keywords = FoundItem.find(params[:found_item]).keywords # Array
-		# location = FoundItem.find(params[:found_item]).location
+		location_found = FoundItem.find(params[:found_item]).location_found
+		current_location = FoundItem.find(params[:found_item]).current_location
 
-		body = "New item found: " + product + ", " + description # + ", near " + location
+
+#		body = "New item found: " + product + ", " + description # + ", near " + location
+
+		body = "FOUND " + product.upcase + "(" + description + ")" + " @" + location_found + ", now @ " + current_location
 
 		# Ask LostItem model for a list of phone numbers of people who may have lost XYZ.
 		# Need to pass: keyword array
