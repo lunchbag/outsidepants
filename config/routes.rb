@@ -13,6 +13,7 @@ Outsidehacks::Application.routes.draw do
 
   get "twilio/found"
   get "twilio/lost"
+  get "twilio/show"
 
   resources :lost_items
   resources :found_items

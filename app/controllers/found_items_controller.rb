@@ -20,7 +20,7 @@ class FoundItemsController < ApplicationController
       # respond_to do |format|
       #   format.html
       # end
-      redirect_to twilio_url
+      redirect_to twilio_found_url(:found_item => @found_item)
     else
       redirect_to found_items_url
     end
