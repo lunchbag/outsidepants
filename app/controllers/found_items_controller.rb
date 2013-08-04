@@ -16,12 +16,11 @@ class FoundItemsController < ApplicationController
     @found_item.keywords = convert_keyword_string_to_array(@found_item.keywords)
     @found_item.claimed_status = false
     @found_item.created_at = Time.now
+
     if @found_item.save
-      respond_to do |format|
-        format.html
-      end
+      redirect_to root_url
     else
-      redirect_to found_items_url
+      redirect_to root_url
     end
   end
 
