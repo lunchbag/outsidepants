@@ -1,0 +1,38 @@
+<% if @message.present? %>
+
+<%= @message %>
+
+<% else %>
+
+<span id="status-message">We're working on it!</span>
+
+<% end %>
+
+<br><img src="<%= @gmaps %>" />
+
+<% content_for :js do %>
+
+<script type="text/javascript">
+(function(){
+  if (Modernizr.geolocation) {
+  	$("#status-message").html("Geolocation detected!");
+    navigator.geolocation.getCurrentPosition(show_map);
+  } else {
+  	$("#status-message").html("Geolocation not available. Please enable it!");
+    // no native support; maybe try a fallback?
+  }
+
+	function show_map(position) {
+		
+  	$("#status-message").html("Getting your current location!");
+	  var latitude = position.coords.latitude;
+	  var longitude = position.coords.longitude;
+  	$("#status-message").html("Location detected! Please wait..");
+	  // destination is either m (marx meadow) or p (polo field)
+	  if (window.location.href.indexOf("location=") == -1) {
+		  window.location.href = window.location.href + "&location=" + latitude + "," + longitude
+		}
+	}
+})();
+</script>
+<% end %>

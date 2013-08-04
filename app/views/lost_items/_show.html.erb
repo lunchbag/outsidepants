@@ -1,0 +1,32 @@
+<h1>Lost Items</h1>
+
+<% if !@lost_items.blank? %>
+<table class="item-table">
+	<thead>
+		<tr>
+			<td>Item</td>
+			<td>Keywords</td>
+			<td>Phone Number</td>
+		</tr>
+	</thead>
+	<tbody>
+	<% @lost_items.each do |l| %>
+		<tr>
+			<td>
+				<%= l.product %>
+			</td>
+			<td>
+				<% if l.keywords.present? %>
+					<% l.keywords.each do |k| %>
+						<%= k %>
+					<% end %>
+				<% end %>
+			</td>
+			<td>
+				<%= l.phone_number %>
+			</td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
+<% end %>

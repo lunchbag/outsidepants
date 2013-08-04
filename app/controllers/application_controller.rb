@@ -4,6 +4,17 @@ class ApplicationController < ActionController::Base
   helper_method :admin_user
   helper_method :current_user
 
+  def index
+  	render "layouts/application"
+  end
+
+  def home
+    @found_items = FoundItem.all
+    @lost_items = LostItem.all
+
+  	render "home/index"
+  end
+
   def convert_keyword_string_to_array(keyword_string)
 		keyword_array = keyword_string.delete(' ').downcase.split(',')
 	end

@@ -1,6 +1,6 @@
 class FoundItem
   include Mongoid::Document
-  attr_accessible :claimed_status
+  attr_accessible :claimed_status, :product, :keywords, :description, :location_found, :current_location
 
   field :product, type: String
   field :description, type: String
@@ -10,6 +10,7 @@ class FoundItem
   field :claimed_at, type: Date
   field :claimed_by, type: String
   field :location_found, type: String
+  field :current_location, type: String
 
   def toggle!(field)
 	  send "#{field}=", !self.send("#{field}?")
