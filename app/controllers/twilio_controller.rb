@@ -9,7 +9,10 @@ class TwilioController < ApplicationController
 	def lost
 		# Receive lost_item ID.
 		# Check all found_items to see if there are any matches.
-		
+
+		# params[:lost_item]
+
+
 	end
 
 	def found
@@ -85,6 +88,12 @@ class TwilioController < ApplicationController
 		render :file => 'app/views/twilio/index.html'
 	end
 
-	def send_sms
+	def send_sms(number, body)
+		twilio_client = Twilio::REST::Client.new TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
+		twilio_client.account.sms.messages.create(
+			:from => "#{TWILIO_PHONE_NUMBER}",
+			:to   => "#{number}",
+			:body => "#{body}"
+		)
 	end
 end
