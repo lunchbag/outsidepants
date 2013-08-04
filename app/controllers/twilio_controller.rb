@@ -57,21 +57,47 @@ class TwilioController < ApplicationController
 
 	def parse_inbound_sms
 		# Receive post request from Twilio.
-		body = params[:Body].downcase
+		body = params[:Body].downcase.strip
 		sender = params[:From]
 
 		puts body
 
 		# HELP and STOP.
-		if body.start_with?("help")
-			puts "HELP"
-			# Respond with help text.
-			response = "Please use the following format: LOST <CATEGORY>: <KEYWORD>, <KEYWORD>.."
-			response << " Categories: Phone, Wallet, Bag, Camera, Keys, Cards, Misc."
-			response << " HELP <CATEGORY> for suggested keywords."
+		if body.start_with?("assist")
+			puts "ASSIST"
+			response = ""
+			temp = "" + body
+			temp.slice! "assist"
+			temp.strip!
 
+			# If just one word, respond with help text.
+			if body.eql? "assist"
+				response << "Please use the following format: LOST <CATEGORY>: <KEYWORD>, <KEYWORD>.."
+				response << " Categories: Phone, Wallet, Bag, Camera, Keys, Cards, Misc."
+				response << " ASSIST <CATEGORY> for suggested keywords."
+			elsif PRODUCTS.include?(temp)
+				# Return popular keywords for that product.
+				case temp
+				when "phone"
+					response << "LOST phone: iphone, android, moto razr, white, black, old, new, case"
+				when "wallet"
+					response << "LOST wallet: leather, black, brown, chain, canvas, zipper, tri-fold"
+				when "bag"
+					response << "LOST bag: leather, backpack, black, white, zipper, canvas, fabric, buckle"
+				when "camera"
+					response << "LOST camera: digital, sony, canon, analog, disposable, instagram, new, used"
+				when "keys"
+					response << "LOST keys: honda, toyota, keychain, bottle opener"
+				when "cards"
+					response << "LOST cards: california license, fake id, bank of america, starbucks giftcard"
+				else
+					response << "LOST misc: potato, pants, left shoe"
+				end
+			else
+				response << "Sorry, we were unable to understand your request. Try 'ASSIST <Category>'. "
+				response << "Categories: Phone, Wallet, Bag, Camera, Keys, Cards, Misc."
+			end
 			send_sms(sender, response)
-
 		elsif body.start_with?("stop")
 			puts "STOP"
 			# Remove phone number records from model.
@@ -88,13 +114,13 @@ class TwilioController < ApplicationController
 			if PRODUCTS.include?(keywords[0])
 				# Auto respond to sender.
 				# - 'You have successfully subscribed to lost items for keywords: '
-				# - 'Reply with HELP or STOP.'
+				# - 'Reply with ASSIST or STOP.'
 				response = "You have successfully subscribed to SMS updates for: "
 				keywords.each do |keyword|
 					response << keyword + ", "
 				end
 				response = response[0..-3]
-				response << ". Reply with HELP for more info or STOP to stop receiving sms."
+				response << ". Reply with ASSIST for more info or STOP to stop receiving sms."
 
 				# Concatenate response body to be within 160 characters.
 				send_sms(sender, response)
@@ -118,7 +144,7 @@ class TwilioController < ApplicationController
 					send_sms(sender, matched_item)
 				end
 			else
-				text = "Error message."
+				text = "We weren't able to recognize your lost item inquiry. Text ASSIST to learn how to submit a lost item request."
 				# Fail, send help message to user
 				send_sms(sender, text)
 			end
