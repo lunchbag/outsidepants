@@ -1,2 +1,17 @@
-<h1>FoundItems#index</h1>
-<p>Find me in app/views/found_items/index.html.erb</p>
+<h1>Found Items</h1>
+
+<p><%= link_to "Add New Item", new_found_item_url %></p>
+
+<% if !@found_items.blank? %>
+	<% @found_items.each do |f| %>
+		<p>
+			<%= link_to f.product, f %><br />
+			Phone Number: <%= f.phone_number %><br />
+			Found? <%= f.claimed_status %><br />
+			Keywords: [<% f.keywords.each do |k| %>
+				<%= k %>
+			<% end %>]
+			<br />
+		</p>
+	<% end %>
+<% end %>

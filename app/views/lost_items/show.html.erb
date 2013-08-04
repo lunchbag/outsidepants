@@ -1,2 +1,8 @@
-<h1>LostItems#show</h1>
-<p>Find me in app/views/lost_items/show.html.erb</p>
+<h1><%= @lost_item.product %></h1>
+
+<%= @lost_item.phone_number %><br />
+Keywords: [<% @lost_item.keywords.each do |k| %>
+	<%= k %>
+<% end %>]
+<br /><br />
+<%= link_to "Back", lost_items_url %>
