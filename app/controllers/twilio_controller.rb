@@ -7,21 +7,48 @@ class TwilioController < ApplicationController
 	end
 
 	def lost
+		# Someone loses a XYZ and submits an inquiry.
+
 		# Receive lost_item ID.
-		# Check all found_items to see if there are any matches.
+		# Check all found_items model to see if anybody turned in an XYZ.
 
 		# params[:lost_item]
+		# Get the following info from 'params[:lost_item]'
+		phone_number = LostItem.find(params[:lost_item]).phone_number
 
+		# Ask model for a list of turned in items and their description (matched)
+		# Send an SMS to the person inquiring.
+		# array_of_matched_items = 
 
+		body = ""
+		send_sms(phone_number, body)
+
+		render :file => 'app/views/twilio/index.html'
 	end
 
 	def found
-		# Receive found_item ID.
-		# Check all lost_items to see if there are any matches.
+		# Someone turns in a lost XYZ.
 
+		# Receive found_item ID.
+		# Check all lost_items model to see if anybody lost XYZ.
+
+		# Ask model for a list of phone numbers of people who may have lost XYZ.
+		phone_number_arr = []
+
+		# Body will be the description of the newly turned in item.
+		product = FoundItem.find(params[:found_item]).product
+		description = FoundItem.find(params[:found_item]).description
+		keywords = FoundItem.find(params[:found_item]).keywords # Array
+		location = FoundItem.find(params[:found_item]).location
+		
+		body = "New item found: " + product + ", " + description + ", near " + location
 
 		# Send out necessary sms.
-		puts 'testies: ' + params[:found_item].to_s
+		phone_number_arr.each do |phone_number|
+			send_sms(phone_number, body)
+		end
+
+		render :file => 'app/views/twilio/index.html'
 	end
 
 	def parse_inbound_sms
