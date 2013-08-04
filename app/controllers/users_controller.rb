@@ -12,9 +12,9 @@ class UsersController < ApplicationController
 		@user = User.create(params[:user])
 		@user.admin = false
 		if @user.save
-			redirect_to show_user_page
+			redirect_to root_url
 		else
-			redirect_to 
+			redirect_to root_url
 		end
 	end
 

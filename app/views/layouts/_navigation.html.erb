@@ -1,0 +1,29 @@
+<div id="navigation">
+
+	<div class="nav-item nav-title pull-left"><b><%= link_to "OUTSIDELANDS LOST & FOUND PORTAL", root_url %></b></div>
+
+<% if current_user %>
+	<div class="nav-item pull-left"><%= link_to "Found an item?", new_found_item_url %></div>
+<% end %>
+
+	<div class="nav-item pull-left"><%= link_to "Lost an item?", new_lost_item_url %></div>
+
+	<div class="nav-item pull-right" id="sign-in">
+		<% if current_user %>
+		<div style="margin-top:3px; display:inline-block; float:right;">
+			Welcome <%= current_user.email %>!
+			(<%= link_to 'Log Out', logout_path %>)
+		</div>
+		<% else %>
+		<div style="margin-top:0px; display:inline-block; float:right;">
+			<%= form_tag sessions_path do %>
+			  Sign In: <%= text_field_tag :email, params[:email], :placeholder => "E-mail" %>
+			  <%= password_field_tag :password %>
+				<%= submit_tag "Log In" %>
+			<% end %>
+		</div>
+		<% end %>
+
+	</div>
+
+</div>

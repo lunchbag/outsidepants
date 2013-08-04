@@ -1,19 +1,14 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+	protect_from_forgery
 
+<<<<<<< HEAD
+	def convert_keyword_string_to_array(keyword_string)
+		keyword_array = keyword_string.delete(' ').downcase.split(',')
+	end
+end
+=======
   helper_method :admin_user
   helper_method :current_user
-
-  def index
-  	render "layouts/application"
-  end
-
-  def home
-    @found_items = FoundItem.all
-    @lost_items = LostItem.all
-
-  	render "home/index"
-  end
 
   def convert_keyword_string_to_array(keyword_string)
 		keyword_array = keyword_string.delete(' ').downcase.split(',')
@@ -29,3 +24,4 @@ class ApplicationController < ActionController::Base
 			@current_user ||= User.find(session[:user_id]) if session[:user_id]
 		end
 end
+>>>>>>> e493345d5fb6b69b9cb9236198b266fe0a49fffd

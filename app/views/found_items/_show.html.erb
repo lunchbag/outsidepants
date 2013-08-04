@@ -1,0 +1,50 @@
+<h1>Found Items</h1>
+
+<% if !@found_items.blank? %>
+<table class="item-table">
+	<thead>
+		<tr>
+			<td>Image</td>
+			<td>Item Description</td>
+			<td>Keywords</td>
+			<td>Location Found</td>
+			<td>Current Location</td>
+			<td>Status</td>
+		</tr>
+	</thead>
+	<tbody>
+	<% @found_items.each do |f| %>
+		<tr>
+			<td>Image here</td>
+			<td>
+				<%= f.product %> - <%= f.description %> 
+			</td>
+			<td>
+				<% if f.keywords.present? %>
+					<% f.keywords.each do |k| %>
+						<%= k %>
+					<% end %>
+				<% end %>
+			</td>
+			<td>
+				<%= f.location_found %>
+			</td>
+			<td>
+				<%= f.current_location %>
+			</td>
+			<td>
+				<% if f.claimed_status %>
+					Claimed!
+				<% else %>
+					Unclaimed
+					<% if !current_user.nil? and current_user.admin %>
+					<%= link_to 'Mark as Claimed', found_items_toggle_status_url(f) %>
+					<% end %>
+				<% end %>
+				
+			</td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
+<% end %>

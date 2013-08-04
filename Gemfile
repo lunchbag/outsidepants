@@ -30,6 +30,8 @@ end
 
 gem 'jquery-rails'
 
+gem 'httpclient'
+
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', require: 'bcrypt'
 
