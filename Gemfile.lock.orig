@@ -127,6 +127,9 @@ DEPENDENCIES
   mongoid (~> 3.0.0)
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)
+<<<<<<< HEAD
   sqlite3
   twilio-ruby
+=======
+>>>>>>> master
   uglifier (>= 1.0.3)
