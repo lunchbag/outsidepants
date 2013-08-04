@@ -100,6 +100,11 @@ class TwilioController < ApplicationController
 			send_sms(sender, response)
 		elsif body.start_with?("stop")
 			puts "STOP"
+			response = ""
+
+			response << "You are now unsubscribed from all LOST alerts!"
+			send_sms(sender, response)
+			
 			# Remove phone number records from model.
 			LostItem.where(phone_number: sender).delete
 		elsif body.start_with?("lost")
