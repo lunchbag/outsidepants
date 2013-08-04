@@ -18,7 +18,7 @@ class LostItemsController < ApplicationController
       # respond_to do |format|
       #   format.html
       # end
-      redirect_to twilio_found_url(:lost_item => @lost_item)
+      redirect_to twilio_lost_url(:lost_item => @lost_item)
     else
       redirect_to index_page
     end
