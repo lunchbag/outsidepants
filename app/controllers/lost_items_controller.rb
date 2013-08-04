@@ -13,7 +13,7 @@ class LostItemsController < ApplicationController
 
   def create
     @lost_item = LostItem.create(params[:lost_item])
-    @lost_item.keywords = @lost_item.keywords.delete(' ').downcase.split(',')
+    @lost_item.keywords = convert_keyword_string_to_array(@lost_item.keywords)
     if @lost_item.save
       respond_to do |format|
         format.html

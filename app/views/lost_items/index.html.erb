@@ -3,9 +3,12 @@
 <% if !@lost_items.blank? %>
 	<% @lost_items.each do |l| %>
 		<p>
-			<%= l.product %><br />
+			<%= link_to l.product, l %><br />
 			<%= l.phone_number %><br />
-			<%= l.keywords %><br />
+			Keywords: [<% l.keywords.each do |k| %>
+				<%= k %>
+			<% end %>]
+			<br />
 		</p>
 	<% end %>
 <% end %>
