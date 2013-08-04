@@ -1,0 +1,8 @@
+<h1><%= @found_item.product %></h1>
+
+Found? <%= f.claimed_status %><br />
+Keywords: [<% @found_item.keywords.each do |k| %>
+	<%= k %>
+<% end %>]
+<br /><br />
+<%= link_to "Back", found_items_url %>
