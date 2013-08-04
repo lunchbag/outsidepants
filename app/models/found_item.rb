@@ -1,5 +1,6 @@
 class FoundItem
   include Mongoid::Document
+  attr_accessible :claimed_status
 
   field :description, type: String
   field :keywords, type: Array
@@ -8,6 +9,17 @@ class FoundItem
   field :claimed_at, type: Date
   field :claimed_by, type: String
   field :location_found, type: String
+
+  def toggle!(field)
+	  send "#{field}=", !self.send("#{field}?")
+	  save :validation => false
+	end
+
+  def toggle_status
+    @fi = FoundItem.find(params[:id])
+    @fi.toggle!(claimed_status)
+  end
+
   field :product, type: String
 
   def self.find_products_by_product_and_keywords(product, keywords=[])
