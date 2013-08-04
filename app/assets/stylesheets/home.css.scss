@@ -1,0 +1,81 @@
+div#navigation {
+	width: 100%;
+	background-color: #464646;
+	position: absolute;
+	top: 0;
+	height: 57px;
+	left: 0;
+	.nav-item {
+		padding: 20px;
+		margin: 0;
+		display: inline-block;
+		font-family: 'Helvetica Neue';
+		font-weight: 300;
+		font-size: 13px;
+		text-shadow: 1px 1px #444;
+		color: #ccc;
+		a {
+			color: #ccc;
+			text-decoration: none;
+		}
+	}
+	.nav-title {
+		color: #eee;
+		font-size: 14px;
+	}
+	.nav-item:hover {
+		background-color: #323232;
+		cursor: pointer;
+	}
+	#sign-in {
+		margin-top: -4px;
+	}
+	#sign-in:hover {
+		background-color: transparent;
+		cursor: hand;
+	}
+	.pull-left {
+		float: left;
+	}
+	.pull-right {
+		float: right;
+	}
+}
+
+div#container {
+	margin: 70px 10px 10px 10px;
+	table.form {
+		td {
+			padding: 8px 20px;
+		}
+		label {
+			font-weight: bold;
+		}
+		input[type=text] {
+			width: 500px;
+		}
+		input[type=radio] {
+			margin-left: 20px;
+		}
+	}
+	table.item-table {
+		width: 100%;
+		thead {
+			font-weight: bold;
+			text-transform: uppercase;
+			td {
+				border: 0;
+			}
+		}
+		td {
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+			padding: 8px;
+			
+		}
+	}
+	input {
+		font-size: 14px;
+		padding: 5px 10px;
+	}
+}

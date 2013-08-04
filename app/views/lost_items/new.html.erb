@@ -1,21 +1,49 @@
-<h1>Lost an Item</h1>
+<h1>Report Your Lost Item</h1>
 
 <p>Please fill out the following form and we'll get back to you when we find something matching the description</p>
 
 <%= form_for @lost_item do |f| %>
-	<p>
-		<%= f.label "Lost Item" %>
-		<%= f.text_field :product %>
-	</p>
-	<p>
-		<%= f.label :phone_number %>
-		<%= f.text_field :phone_number %>
-	</p>
-	<p>
-		<%= f.label :keywords %>
-		<%= f.text_field :keywords %>
-	</p>
-	<p>
-		<%= f.submit "Report Lost Item" %>
-	</p>
+	<table class="form">
+		<tr>
+			<td>
+				<%= f.label "Lost Item" %>
+			</td>
+			<td>
+				<%= f.radio_button(:product, "phone") %>
+				<%= f.label :product_phone, "Phone" %>
+				<%= f.radio_button(:product, "wallet") %>
+				<%= f.label :product_wallet, "Wallet" %>
+				<%= f.radio_button(:product, "bag") %>
+				<%= f.label :product_wallet, "Bag" %>
+				<%= f.radio_button(:product, "keys") %>
+				<%= f.label :product_keys, "Keys" %>
+				<%= f.radio_button(:product, "card") %>
+				<%= f.label :product_card, "Card" %>
+				<%= f.radio_button(:product, "misc") %>
+				<%= f.label :product_misc, "Misc" %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= f.label :phone_number %>
+			</td>
+			<td>
+				<%= f.text_field :phone_number %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= f.label :keywords %>
+			</td>
+			<td>
+				<%= f.text_field :keywords %>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<%= f.submit "Report Lost Item" %>
+			</td>
+		</tr>
+	</table>
 <% end %>
