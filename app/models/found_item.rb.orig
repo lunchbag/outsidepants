@@ -1,6 +1,6 @@
 class FoundItem
   include Mongoid::Document
-  attr_accessible :claimed_status, :product, :keywords, :description, :location_found, :current_location
+  attr_accessible :claimed_status
 
   field :description, type: String
   field :keywords, type: Array
@@ -9,7 +9,10 @@ class FoundItem
   field :claimed_at, type: Date
   field :claimed_by, type: String
   field :location_found, type: String
-  field :current_location, type: String
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 9a22e990e2ed0b7eff6df4273537d94773b25a33
 
   def toggle!(field)
 	  send "#{field}=", !self.send("#{field}?")
@@ -20,7 +23,12 @@ class FoundItem
     @fi = FoundItem.find(params[:id])
     @fi.toggle!(claimed_status)
   end
+<<<<<<< HEAD
 
+=======
+end
+=======
+>>>>>>> 9a22e990e2ed0b7eff6df4273537d94773b25a33
   field :product, type: String
 
   def self.find_products_by_product_and_keywords(product, keywords=[])
@@ -37,3 +45,4 @@ class FoundItem
     return array_of_matched_items
   end
 end
+>>>>>>> twilio
