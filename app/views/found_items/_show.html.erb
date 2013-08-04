@@ -13,9 +13,13 @@
 		</tr>
 	</thead>
 	<tbody>
-	<% @found_items.each do |f| %>
+	<% @found_items.reverse.each do |f| %>
 		<tr>
-			<td>Image here</td>
+			<td>
+				<%= link_to f.image.url(:large) do %>
+					<%= image_tag f.image.url(:thumb) %>
+				<% end %>
+			</td>
 			<td>
 				<%= f.product %> - <%= f.description %> 
 			</td>
