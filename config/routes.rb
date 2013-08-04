@@ -9,6 +9,7 @@ Outsidehacks::Application.routes.draw do
   get "found_items/create"
   get "found_items/show"
   get "found_items/destroy"
+  get "found_items/toggle_status"
 
   get "lost_items/index"
   get "lost_items/show"
@@ -21,7 +22,11 @@ Outsidehacks::Application.routes.draw do
   get "twilio/show"
 
   resources :lost_items
-  resources :found_items
+  resources :found_items do
+    member do
+      put :toggle_status
+    end
+  end
   resources :users
   resources :sessions
   resources :twilio
