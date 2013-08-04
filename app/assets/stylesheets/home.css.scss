@@ -1,17 +1,20 @@
+div#workspace {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0 ;
+}
+
 div#navigation {
 	width: 100%;
 	background-color: #004559;
-	position: absolute;
+	position: relative;
 	top: 0;
-	height: 57px;
 	left: 0;
 	.nav-item {
-		padding: 20px;
-		margin: 0;
+		margin: -1px 0 -4px 0;
 		display: inline-block;
-		
 		font-weight: 300;
-		font-size: 13px;
 		text-shadow: 1px 1px #444;
 		color: #ccc;
 		a {
@@ -19,12 +22,16 @@ div#navigation {
 			text-decoration: none;
 		}
 	}
+	.nav-link {
+		padding: 20px 16px 21px 16px;
+		font-size: 14px;
+	}
 	.nav-title a {
 		color: #fff;
 		font-size: 16px;
 	}
 	.nav-title {
-		padding: 18px;
+		padding: 20px;
 	}
 	.nav-item:hover {
 		background-color: #323232;
@@ -51,10 +58,11 @@ body {
 }
 
 div#container {
+	position: relative;
 	border-radius: 15px;
 	background-color: white;
 	padding: 5px 15px 20px 25px;
-	margin: 80px auto;
+	margin: 15px auto;
 	width: 95%;
 	table.form {
 		td {
