@@ -6,6 +6,13 @@ class TwilioController < ApplicationController
 	def index
 	end
 
+	def lost
+	end
+
+	def found
+		puts params
+	end
+
 	def parse_inbound_sms
 		# Receive post request from Twilio.
 		body = params[:Body]
@@ -68,5 +75,8 @@ class TwilioController < ApplicationController
 		end
 
 		render :file => 'app/views/twilio/index.html'
+	end
+
+	def send_sms
 	end
 end
