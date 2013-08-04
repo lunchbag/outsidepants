@@ -17,8 +17,8 @@
 				<%= f.label :product_wallet, "Bag" %>
 				<%= f.radio_button(:product, "keys") %>
 				<%= f.label :product_keys, "Keys" %>
-				<%= f.radio_button(:product, "card") %>
-				<%= f.label :product_card, "Card" %>
+				<%= f.radio_button(:product, "cards") %>
+				<%= f.label :product_card, "Cards" %>
 				<%= f.radio_button(:product, "misc") %>
 				<%= f.label :product_misc, "Misc" %>
 			</td>
@@ -29,14 +29,6 @@
 			</td>
 			<td>
 				<%= f.text_field :phone_number %>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<%= f.label :keywords %>
-			</td>
-			<td>
-				<%= f.text_field :keywords %>
 			</td>
 		</tr>
 		<tr>

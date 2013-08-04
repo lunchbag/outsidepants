@@ -5,7 +5,6 @@
 	<thead>
 		<tr>
 			<td>Item</td>
-			<td>Keywords</td>
 			<td>Phone Number</td>
 		</tr>
 	</thead>
@@ -14,13 +13,6 @@
 		<tr>
 			<td>
 				<%= l.product %>
-			</td>
-			<td>
-				<% if l.keywords.present? %>
-					<% l.keywords.each do |k| %>
-						<%= k %>
-					<% end %>
-				<% end %>
 			</td>
 			<td>
 				<%= l.phone_number %>
