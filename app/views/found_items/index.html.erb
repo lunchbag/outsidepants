@@ -1,0 +1,16 @@
+<h1>Found Items</h1>
+
+<p><%= link_to "Add New Item", new_found_item_url %></p>
+
+<% if !@found_items.blank? %>
+	<% @found_items.each do |f| %>
+		<p>
+			<%= link_to f.product, f %><br />
+			Found? <%= f.claimed_status %><br />
+			Keywords: [<% f.keywords.each do |k| %>
+				<%= k %>
+			<% end %>]
+			<br />
+		</p>
+	<% end %>
+<% end %>

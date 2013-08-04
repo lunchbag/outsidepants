@@ -1,0 +1,14 @@
+<h1>Lost Items</h1>
+
+<% if !@lost_items.blank? %>
+	<% @lost_items.each do |l| %>
+		<p>
+			<%= link_to l.product, l %><br />
+			<%= l.phone_number %><br />
+			Keywords: [<% l.keywords.each do |k| %>
+				<%= k %>
+			<% end %>]
+			<br />
+		</p>
+	<% end %>
+<% end %>

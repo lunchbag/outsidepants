@@ -1,0 +1,21 @@
+<h1>Lost an Item</h1>
+
+<p>Please fill out the following form and we'll get back to you when we find something matching the description</p>
+
+<%= form_for @lost_item do |f| %>
+	<p>
+		<%= f.label "Lost Item" %>
+		<%= f.text_field :product %>
+	</p>
+	<p>
+		<%= f.label :phone_number %>
+		<%= f.text_field :phone_number %>
+	</p>
+	<p>
+		<%= f.label :keywords %>
+		<%= f.text_field :keywords %>
+	</p>
+	<p>
+		<%= f.submit "Report Lost Item" %>
+	</p>
+<% end %>

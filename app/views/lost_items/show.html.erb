@@ -1,0 +1,8 @@
+<h1><%= @lost_item.product %></h1>
+
+<%= @lost_item.phone_number %><br />
+Keywords: [<% @lost_item.keywords.each do |k| %>
+	<%= k %>
+<% end %>]
+<br /><br />
+<%= link_to "Back", lost_items_url %>

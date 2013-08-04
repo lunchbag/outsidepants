@@ -1,0 +1,2 @@
+module FoundItemsHelper
+end
