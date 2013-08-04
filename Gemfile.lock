@@ -34,6 +34,14 @@ GEM
     bson_ext (1.9.1)
       bson (~> 1.9.1)
     builder (3.0.4)
+    carrierwave (0.9.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.1)
+      climate_control (>= 0.0.3, < 1.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -65,6 +73,11 @@ GEM
     moped (1.5.0)
     multi_json (1.7.7)
     origin (1.1.0)
+    paperclip (3.5.1)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.0)
+      mime-types
     polyglot (0.3.3)
     rack (1.4.5)
     rack-cache (1.2)
@@ -91,6 +104,7 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    rmagick (2.13.2)
     sass (3.2.10)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -121,12 +135,14 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby
   bson_ext
+  carrierwave
   coffee-rails (~> 3.2.1)
   jquery-rails
   json
   mongoid (~> 3.0.0)
+  paperclip
   rails (= 3.2.13)
+  rmagick
   sass-rails (~> 3.2.3)
-  sqlite3
   twilio-ruby
   uglifier (>= 1.0.3)
