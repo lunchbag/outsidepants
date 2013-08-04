@@ -8,17 +8,18 @@ class TwilioController < ApplicationController
 
 	def lost
 		# Someone loses a XYZ and submits an inquiry.
-
 		# Receive lost_item ID.
 		# Check all found_items model to see if anybody turned in an XYZ.
 
-		# params[:lost_item]
 		# Get the following info from 'params[:lost_item]'
 		phone_number = LostItem.find(params[:lost_item]).phone_number
+		keywords = LostItem.find(params[:lost_item]).keywords
 
-		# Ask model for a list of turned in items and their description (matched)
+		# Ask FoundItem model for a list of turned in items and their description (matched)
 		# Send an SMS to the person inquiring.
-		# array_of_matched_items = 
+		array_of_matched_items = FoundItem.find_matches(keywords)
+
+		# Array of matched items: product, description, location.
 
 		body = ""
 		send_sms(phone_number, body)
@@ -28,21 +29,21 @@ class TwilioController < ApplicationController
 
 	def found
 		# Someone turns in a lost XYZ.
-
 		# Receive found_item ID.
 		# Check all lost_items model to see if anybody lost XYZ.
-
-		# Ask model for a list of phone numbers of people who may have lost XYZ.
-		phone_number_arr = []
 
 		# Body will be the description of the newly turned in item.
 		product = FoundItem.find(params[:found_item]).product
 		description = FoundItem.find(params[:found_item]).description
 		keywords = FoundItem.find(params[:found_item]).keywords # Array
 		location = FoundItem.find(params[:found_item]).location
-		
+
 		body = "New item found: " + product + ", " + description + ", near " + location
 
+		# Ask LostItem model for a list of phone numbers of people who may have lost XYZ.
+		# Need to pass: keyword array
+		phone_number_arr = LostItem.find_matches(keywords)
+		
 		# Send out necessary sms.
 		phone_number_arr.each do |phone_number|
 			send_sms(phone_number, body)
@@ -79,7 +80,7 @@ class TwilioController < ApplicationController
 			# User texted us keywords.
 
 			# Parse the inbound SMS.
-			keywords = body.strip.split(/[\s,]+/)
+			keywords = body.strip.delete(' ').downcase.split(',')
 
 			# Auto respond to sender.
 			# - 'You have successfully subscribed to lost items for keywords: '
