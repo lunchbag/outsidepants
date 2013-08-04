@@ -1,7 +1,7 @@
 Outsidehacks::Application.routes.draw do
 
   # Endpoint for inbound SMS from Twilio.
-  match '/inbound-sms', :to => 'twilio#parse_inbound_sms'
+  match '/inbound-sms', :controller => 'Twilio', :action => 'parse_inbound_sms'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -4,6 +4,9 @@ class TwilioController < ApplicationController
 
 	def parse_inbound_sms
 		# Receive post request from Twilio.
+		body = params[:Body]
+		sender = params[:From]
+
 		# Parse the inbound SMS.
 		# Auto respond to sender.
 		# Insert into model.
