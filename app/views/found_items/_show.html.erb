@@ -16,7 +16,9 @@
 	<% @found_items.reverse.each do |f| %>
 		<tr>
 			<td>
-				<%= image_tag f.image.url(:thumb) %>
+				<%= link_to f.image.url(:large) do %>
+					<%= image_tag f.image.url(:thumb) %>
+				<% end %>
 			</td>
 			<td>
 				<%= f.product %> - <%= f.description %> 
