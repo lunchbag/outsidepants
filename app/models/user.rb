@@ -33,4 +33,9 @@ class User
   		self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
   	end
   end
+
+  def toggle!(field)
+	  send "#{field}=", !self.send("#{field}?")
+	  save :validation => false
+	end
 end

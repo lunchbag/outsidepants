@@ -28,4 +28,9 @@ class FoundItemsController < ApplicationController
   def destroy
     @found_item = FoundItem.find(params[:id])
   end
+
+  #private
+
+  
+  
 end
