@@ -1,4 +1,8 @@
 class TwilioController < ApplicationController
+	TWILIO_ACCOUNT_SID = Outsidehacks::Application.config.account_sid
+	TWILIO_AUTH_TOKEN = Outsidehacks::Application.config.auth_token
+	TWILIO_PHONE_NUMBER = Outsidehacks::Application.config.phone_number
+
 	def index
 	end
 
@@ -13,6 +17,12 @@ class TwilioController < ApplicationController
 		# Auto respond to sender.
 		# - 'You have successfully subscribed to lost items for keywords: '
 		# - 'Reply with HELP or STOP.'
+		twilio_client = Twilio::REST::Client.new TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
+		twilio_client.account.sms.messages.create(
+			:from => "#{TWILIO_PHONE_NUMBER}",
+			:to   => "#{sender}",
+			:body => "#{body}"
+		)
 
 		# Insert into model.
 		LostItem.create(
