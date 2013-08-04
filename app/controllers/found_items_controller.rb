@@ -41,7 +41,7 @@ class FoundItemsController < ApplicationController
     end
     
     if @fi.save
-      redirect_to root_url
+      redirect_to donate_url
     else
       redirect_to '#'
     end

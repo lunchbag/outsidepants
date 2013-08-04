@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
   	render "home/index"
   end
 
+  def donate
+    render "home/donate"
+  end
+
   def convert_keyword_string_to_array(keyword_string)
 		keyword_array = keyword_string.delete(' ').downcase.split(',')
 	end
