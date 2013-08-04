@@ -27,7 +27,7 @@ class TwilioController < ApplicationController
 			send_sms(phone_number, matched_item)
 		end
 
-		render :file => 'app/views/twilio/index.html'
+		redirect_to root_url
 	end
 
 	def found
@@ -36,27 +36,22 @@ class TwilioController < ApplicationController
 		# Check all lost_items model to see if anybody lost XYZ.
 
 		# Body will be the description of the newly turned in item.
-		product = FoundItem.find(params[:found_item]).product
-		description = FoundItem.find(params[:found_item]).description
-		keywords = FoundItem.find(params[:found_item]).keywords # Array
-		location_found = FoundItem.find(params[:found_item]).location_found
-		current_location = FoundItem.find(params[:found_item]).current_location
+		item = FoundItem.find(params[:found_item]);
 
-
-#		body = "New item found: " + product + ", " + description # + ", near " + location
-
-		body = "FOUND " + product.upcase + "(" + description + ")" + " @" + location_found + ", now @ " + current_location
+		body = "FOUND " + item.product.upcase + " (" + item.description[0..25] + "..) " + " @" + item.location_found + "; text 'INFO " + item.item_id.to_s + "' for details."
 
 		# Ask LostItem model for a list of phone numbers of people who may have lost XYZ.
 		# Need to pass: keyword array
-		phone_number_arr = LostItem.find_numbers_by_product_and_keywords(product, keywords)
+		phone_number_arr = LostItem.find_numbers_by_product_and_keywords(item.product, item.keywords)
 		
 		# Send out necessary sms.
 		phone_number_arr.each do |phone_number|
+			puts "body: " + body.to_s
+			puts "phone number: " + phone_number.to_s
 			send_sms(phone_number, body)
 		end
 
-		render :file => 'app/views/twilio/index.html'
+		redirect_to root_url
 	end
 
 	def parse_inbound_sms
@@ -102,23 +97,23 @@ class TwilioController < ApplicationController
 				response << "Categories: Phone, Wallet, Bag, Camera, Keys, Cards, Misc."
 			end
 			send_sms(sender, response)
-		elsif body.start_with?("image")
-			body.slice! "image"
+		elsif body.start_with?("info")
+			body.slice! "info"
 			keywords = body.strip.delete(' ').downcase.split(/[\:\,]/)
+			found_item = FoundItem.where(item_id: keywords[0].to_i).first
+			response = ""
 
-			# keywords[0] should be numeric ID
+			if (found_item.image.present?)
+				response << "Image: " + found_item.image.url(:large)
+			end
 
-			# search by ID, send MMS with image
+			if (found_item.current_location == "marx meadow")
+				response << " Pick up @ Marx Meadow: http://goo.gl/z7gEaq"
+			else
+				response << " Pick up @ Polo Field: http://goo.gl/9eFF4g"
+			end
 
-		elsif body.start_with?("whereis")
-			body.slice! "whereis"
-			keywords = body.strip.delete(' ').downcase.split(/[\:\,]/)
-
-			# keywords[0] should be numeric ID
-
-			# search by ID, get current_location and send a text with a link
-			# /tomtom?destination=(p|m)
-
+			send_sms(sender, response)
 		elsif body.start_with?("stop")
 			puts "STOP"
 			response = ""
@@ -181,9 +176,10 @@ class TwilioController < ApplicationController
 
 	def send_sms(number, body)
 		twilio_client = Twilio::REST::Client.new TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
+		new_body = body + ""
 		for i in 0..(body.length/160)
-			text = body[0, 160]
-			body.slice! text
+			text = new_body[0, 160]
+			new_body.slice! text
 			twilio_client.account.sms.messages.create(
 				:from => "#{TWILIO_PHONE_NUMBER}",
 				:to   => "#{number}",

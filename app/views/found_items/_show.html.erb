@@ -24,11 +24,8 @@
 				<%= f.product %> - <%= f.description %> 
 			</td>
 			<td>
-				<% if f.keywords.present? %>
-					<% f.keywords.each do |k| %>
-						<%= k %>
-					<% end %>
-				<% end %>
+
+				<%= f.item_id %>
 			</td>
 			<td>
 				<%= f.location_found %>

@@ -1,7 +1,7 @@
 class FoundItem
   include Mongoid::Document
   include Mongoid::Paperclip
-  attr_accessible :claimed_status, :product, :description, :keywords, :image, :location_found, :current_location
+  attr_accessible :claimed_status, :product, :description, :keywords, :image, :location_found, :current_location, :id
   
   field :description, type: String
   field :keywords, type: Array
@@ -11,6 +11,8 @@ class FoundItem
   field :claimed_by, type: String
   field :location_found, type: String
   field :current_location, type: String
+  field :item_id, type: Integer
+  field :product, type: String
 
   has_mongoid_attached_file :image, 
     styles: {
@@ -18,7 +20,8 @@ class FoundItem
       large: '1000x1000>'
     },
     #content_type: [ "image/jpg", "image/png", "image/bmp" ],
-    path: "photos/:date/:id/:style/:filename",
+    # path: "photos/:date/:id/:style/:filename",
+    path: "p/:filename",
     storage: :s3,
     bucket: 'outsidepants',
     s3_credentials: Rails.root.join("config/s3.yml")
@@ -33,8 +36,6 @@ class FoundItem
     @fi.toggle!(claimed_status)
   end
 
-  field :product, type: String
-
   def self.find_products_by_product_and_keywords(product, keywords=[])
   	# Receives an array of keywords.
   	# Return an array of matched items (product, desc, location, created_at).
@@ -42,7 +43,8 @@ class FoundItem
     self.where(product: product).each do |found_item|
       # unless (keywords & found_item.keywords).empty?
         # item_text = 'Found: ' + found_item.product + ', ' + found_item.description # + ' at ' + found_item.location_found
-        item_text = "FOUND " + found_item.product.upcase + "(" + found_item.description + ")" + " @" + found_item.location_found + ", now @ " + found_item.current_location
+        item_text = "FOUND " + found_item.product.upcase + " (" + found_item.description[0..25] + "..) " + " @" + found_item.location_found + "; text 'INFO " + found_item.item_id.to_s + "' for details."
+
         # puts item_text
         array_of_matched_items.push(item_text)
       # end
