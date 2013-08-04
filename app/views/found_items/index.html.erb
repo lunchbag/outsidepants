@@ -15,12 +15,14 @@
 <p><%= link_to "Add New Item", new_found_item_url %></p>
 
 <% if !@found_items.blank? %>
-	<% @found_items.each do |f| %>
+	<% @found_items.reverse.each do |f| %>
 		<p>
 			<%= link_to f.product, f %><br />
 			Found? <%= f.claimed_status %>
-				<% if current_user.admin %>
-					| <%= link_to 'Mark as Claimed', found_items_toggle_status_url(f) %>
+				<% if current_user %>
+					<% if current_user.admin %>
+						| <%= link_to 'Mark as Claimed', found_items_toggle_status_url(f) %>
+					<% end %>
 				<% end %>
 			<br />
 			Keywords: [<% f.keywords.each do |k| %>

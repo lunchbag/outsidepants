@@ -1,0 +1,9 @@
+development:
+  bucket: 'outsidepants'
+  access_key_id: 'AKIAI3KRPLD4OW33V7RA'
+  secret_access_key: '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'
+
+production:
+  bucket: 'outsidepants'
+  access_key_id: 'AKIAI3KRPLD4OW33V7RA'
+  secret_access_key: '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'

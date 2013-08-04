@@ -3,6 +3,7 @@
 Found? <%= @found_item.claimed_status %><br />
 Keywords: [<% @found_item.keywords.each do |k| %>
 	<%= k %>
-<% end %>]
+<% end %>]<br />
+<%= image_tag @found_item.image.url(:large) %>
 <br /><br />
 <%= link_to "Back", found_items_url %>

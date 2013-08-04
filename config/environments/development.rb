@@ -1,6 +1,19 @@
 Outsidehacks::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => 'outsidepants',
+      :access_key_id => 'AKIAI3KRPLD4OW33V7RA',
+      :secret_access_key => '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'
+    }
+  }
+
+      #:bucket => ENV['AWS_BUCKET'],
+      #:access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      #:secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
