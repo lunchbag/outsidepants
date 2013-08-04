@@ -15,7 +15,7 @@ class FoundItem
   has_mongoid_attached_file :image, 
     styles: {
       thumb: '100x100#',
-      large: '700x700>'
+      large: '1000x1000>'
     },
     #content_type: [ "image/jpg", "image/png", "image/bmp" ],
     path: "photos/:date/:id/:style/:filename",
