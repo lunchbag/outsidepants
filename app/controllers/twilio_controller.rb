@@ -109,10 +109,10 @@ class TwilioController < ApplicationController
 				# - 'You have successfully subscribed to lost items for keywords: '
 				# - 'Reply with HELP or STOP.'
 				response = "You have successfully subscribed to lost items tagged: "
-				keywords.each do |keyword|
+				keywords[1..-1].each do |keyword|
 					response << keyword + ", "
 				end
-				response.slice! response[-2..-1]
+				response = response[0..-3]
 				response << ". Reply with HELP for more info or STOP to stop receiving sms."
 
 				# Concatenate response body to be within 160 characters.
