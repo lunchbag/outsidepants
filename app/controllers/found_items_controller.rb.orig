@@ -20,7 +20,7 @@ class FoundItemsController < ApplicationController
       # respond_to do |format|
       #   format.html
       # end
-      redirect_to twilio_url
+      redirect_to twilio_found_url(:found_item => @found_item)
     else
       redirect_to found_items_url
     end
@@ -30,12 +30,30 @@ class FoundItemsController < ApplicationController
     @found_item = FoundItem.find(params[:id])
   end
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 end
 =======
+>>>>>>> 9a22e990e2ed0b7eff6df4273537d94773b25a33
 
-  #private
-
+  def toggle_status
+    @fi = FoundItem.find(params[:format])
+    if @fi.claimed_status
+      @fi.claimed_status = false
+    else
+      @fi.claimed_status = true
+    end
+    
+    if @fi.save
+      redirect_to root_url
+    else
+      redirect_to '#'
+    end
+  end
   
-  
+<<<<<<< HEAD
 end
->>>>>>> e493345d5fb6b69b9cb9236198b266fe0a49fffd
+=======
+end
+>>>>>>> 7a711789de88a00f7b6c636f0f317bbec052ff1c
+>>>>>>> 9a22e990e2ed0b7eff6df4273537d94773b25a33
