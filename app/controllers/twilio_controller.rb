@@ -22,9 +22,6 @@ class TwilioController < ApplicationController
 		# Send an SMS to the person inquiring.
 		array_of_matched_items = FoundItem.find_products_by_product_and_keywords(product, keywords)
 
-		puts "array of matched items:"
-		puts array_of_matched_items
-
 		# Array of matched items: product, description, location.
 		array_of_matched_items.each do |matched_item|
 			send_sms(phone_number, matched_item)
@@ -44,9 +41,7 @@ class TwilioController < ApplicationController
 		keywords = FoundItem.find(params[:found_item]).keywords # Array
 		# location = FoundItem.find(params[:found_item]).location
 
-		body = "New item found: " + product + ", " + description + ", near " #+ location
-
-		puts body
+		body = "New item found: " + product + ", " + description # + ", near " + location
 
 		# Ask LostItem model for a list of phone numbers of people who may have lost XYZ.
 		# Need to pass: keyword array
@@ -93,11 +88,6 @@ class TwilioController < ApplicationController
 			LostItem.where(phone_number: sender).delete
 		elsif body.start_with?("lost")
 			# User texted us keywords.
-			puts ": LOST"
-			body.slice! "lost"
-
-			puts body
-
 			# LOST <CATEGORY> <KEYWORD>, <KEYWORD>
 
 			# Parse the inbound SMS.
@@ -139,9 +129,6 @@ class TwilioController < ApplicationController
 				# Ask FoundItem model for a list of turned in items and their description (matched)
 				# Send an SMS to the person inquiring.
 				array_of_matched_items = FoundItem.find_products_by_product_and_keywords(keywords[0], keywords[1..-1])
-
-				puts "array of matched items:"
-				puts array_of_matched_items
 
 				# Array of matched items: product, description, location.
 				array_of_matched_items.each do |matched_item|
