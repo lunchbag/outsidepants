@@ -21,7 +21,7 @@ class FoundItem
     },
     #content_type: [ "image/jpg", "image/png", "image/bmp" ],
     # path: "photos/:date/:id/:style/:filename",
-    path: "p/:filename",
+    path: "p/:style/:filename",
     storage: :s3,
     bucket: 'outsidepants',
     s3_credentials: Rails.root.join("config/s3.yml")
