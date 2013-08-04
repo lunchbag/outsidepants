@@ -102,6 +102,23 @@ class TwilioController < ApplicationController
 				response << "Categories: Phone, Wallet, Bag, Camera, Keys, Cards, Misc."
 			end
 			send_sms(sender, response)
+		elsif body.start_with?("image")
+			body.slice! "image"
+			keywords = body.strip.delete(' ').downcase.split(/[\:\,]/)
+
+			# keywords[0] should be numeric ID
+
+			# search by ID, send MMS with image
+
+		elsif body.start_with?("whereis")
+			body.slice! "whereis"
+			keywords = body.strip.delete(' ').downcase.split(/[\:\,]/)
+
+			# keywords[0] should be numeric ID
+
+			# search by ID, get current_location and send a text with a link
+			# /tomtom?destination=(p|m)
+
 		elsif body.start_with?("stop")
 			puts "STOP"
 			response = ""
