@@ -9,7 +9,6 @@ Outsidehacks::Application.routes.draw do
   get "found_items/create"
   get "found_items/show"
   get "found_items/destroy"
-  get "found_items/toggle_status"
 
   get "lost_items/index"
   get "lost_items/show"
@@ -19,19 +18,17 @@ Outsidehacks::Application.routes.draw do
 
   get "twilio/found"
   get "twilio/lost"
-  get "twilio/show"
 
   resources :lost_items
-  resources :found_items do
-    member do
-      put :toggle_status
-    end
-  end
+  resources :found_items
+<<<<<<< HEAD
+  resources :twilio
+=======
   resources :users
   resources :sessions
-  resources :twilio
 
   root to: 'found_items#index'
+>>>>>>> e493345d5fb6b69b9cb9236198b266fe0a49fffd
 
   # Endpoint for inbound SMS from Twilio.
   match '/inbound-sms', :controller => 'Twilio', :action => 'parse_inbound_sms'
