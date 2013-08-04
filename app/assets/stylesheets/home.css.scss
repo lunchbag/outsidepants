@@ -11,6 +11,7 @@ div#navigation {
 	position: relative;
 	top: 0;
 	left: 0;
+	padding: 2px 0 4px 0;
 	.nav-item {
 		margin: -1px 0 -4px 0;
 		display: inline-block;
@@ -39,10 +40,6 @@ div#navigation {
 	}
 	#sign-in {
 		margin-top: -4px;
-	}
-	#sign-in:hover {
-		background-color: transparent;
-		cursor: hand;
 	}
 	.pull-left {
 		float: left;
