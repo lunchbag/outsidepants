@@ -2,6 +2,7 @@ Outsidehacks::Application.routes.draw do
   match '/login', to: 'sessions#new'
   match '/logout', to: 'sessions#destroy'
   match '/signup', to: 'users#new'
+  match '/donate', to: 'application#donate'
   #match '/admin', to: 'users#admin'
 
   get "found_items/index"
