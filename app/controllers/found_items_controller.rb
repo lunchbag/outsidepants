@@ -29,4 +29,24 @@ class FoundItemsController < ApplicationController
   def destroy
     @found_item = FoundItem.find(params[:id])
   end
+<<<<<<< HEAD
 end
+=======
+
+  def toggle_status
+    @fi = FoundItem.find(params[:format])
+    if @fi.claimed_status
+      @fi.claimed_status = false
+    else
+      @fi.claimed_status = true
+    end
+    
+    if @fi.save
+      redirect_to root_url
+    else
+      redirect_to '#'
+    end
+  end
+  
+end
+>>>>>>> 7a711789de88a00f7b6c636f0f317bbec052ff1c
