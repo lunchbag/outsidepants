@@ -12,17 +12,33 @@ class TwilioController < ApplicationController
 		sender = params[:From]
 
 		# Parse the inbound SMS.
-		keywords = body.strip.split(/\s+/)
+		keywords = body.strip.split(/[\s,]+/)
 
 		# Auto respond to sender.
 		# - 'You have successfully subscribed to lost items for keywords: '
 		# - 'Reply with HELP or STOP.'
+		response = "You have successfully subscribed to lost items tagged: "
+		keywords.each do |keyword|
+			response << keyword + ", "
+		end
+		response.slice! response[-2..-1]
+		response << ". Reply with HELP for more info or STOP to stop receiving sms."
+
+		# Prepare twilio wrapper object.
 		twilio_client = Twilio::REST::Client.new TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
-		twilio_client.account.sms.messages.create(
-			:from => "#{TWILIO_PHONE_NUMBER}",
-			:to   => "#{sender}",
-			:body => "#{body}"
-		)
+
+		# Concatenate response body to be within 160 characters.
+		for i in 0..(response.length/160)
+			text = response[0, 160]
+			response.slice! text
+			twilio_client.account.sms.messages.create(
+				:from => "#{TWILIO_PHONE_NUMBER}",
+				:to   => "#{sender}",
+				:body => "#{text}"
+			)
+		end
+
+		product = ""
 
 		# Insert into model.
 		LostItem.create(
