@@ -7,12 +7,20 @@ class TwilioController < ApplicationController
 		body = params[:Body]
 		sender = params[:From]
 
-		puts "sender: " + sender
-		puts "body: " + body
-
 		# Parse the inbound SMS.
+		keywords = body.strip.split(/\s+/)
+
 		# Auto respond to sender.
+		# - 'You have successfully subscribed to lost items for keywords: '
+		# - 'Reply with HELP or STOP.'
+
 		# Insert into model.
+		LostItem.create(
+			:product => product,
+			:phone_number => sender,
+			:keywords => keywords
+		)
+
 		render :file => 'app/views/twilio/index.html'
 	end
 end
