@@ -23,7 +23,7 @@
 			(<%= link_to 'Log Out', logout_path %>)
 		</div>
 		<% else %>
-		<div style="margin-top:0px; display:inline-block; float:right;">
+		<div style="margin-top:0px; margin-bottom: -5px; display:inline-block; float:right;">
 			<%= form_tag sessions_path do %>
 			  Sign In: <%= text_field_tag :email, params[:email], :placeholder => "E-mail" %>
 			  <%= password_field_tag :password %>
