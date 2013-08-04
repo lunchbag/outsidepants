@@ -7,10 +7,18 @@ class TwilioController < ApplicationController
 	end
 
 	def lost
+		# Receive lost_item ID.
+		# Check all found_items to see if there are any matches.
+		
 	end
 
 	def found
-		puts params
+		# Receive found_item ID.
+		# Check all lost_items to see if there are any matches.
+
+
+		# Send out necessary sms.
+		puts 'testies: ' + params[:found_item].to_s
 	end
 
 	def parse_inbound_sms

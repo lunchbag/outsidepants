@@ -15,9 +15,10 @@ class LostItemsController < ApplicationController
     @lost_item = LostItem.create(params[:lost_item])
     @lost_item.keywords = convert_keyword_string_to_array(@lost_item.keywords)
     if @lost_item.save
-      respond_to do |format|
-        format.html
-      end
+      # respond_to do |format|
+      #   format.html
+      # end
+      redirect_to twilio_found_url(:lost_item => @lost_item)
     else
       redirect_to index_page
     end
