@@ -29,6 +29,7 @@ class TwilioController < ApplicationController
 
 		elsif body.include? "STOP"
 			# Remove phone number from model.
+			LostItem.where(phone_number: sender).delete
 		else
 			# User texted us keywords.
 
