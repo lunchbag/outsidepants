@@ -1,6 +1,6 @@
 div#navigation {
 	width: 100%;
-	background-color: #464646;
+	background-color: #004559;
 	position: absolute;
 	top: 0;
 	height: 57px;
@@ -9,7 +9,7 @@ div#navigation {
 		padding: 20px;
 		margin: 0;
 		display: inline-block;
-		font-family: 'Helvetica Neue';
+		
 		font-weight: 300;
 		font-size: 13px;
 		text-shadow: 1px 1px #444;
@@ -19,13 +19,16 @@ div#navigation {
 			text-decoration: none;
 		}
 	}
+	.nav-title a {
+		color: #fff;
+		font-size: 16px;
+	}
 	.nav-title {
-		color: #eee;
-		font-size: 14px;
+		padding: 18px;
 	}
 	.nav-item:hover {
 		background-color: #323232;
-		cursor: pointer;
+		/*cursor: pointer;*/
 	}
 	#sign-in {
 		margin-top: -4px;
@@ -42,8 +45,17 @@ div#navigation {
 	}
 }
 
+body { 
+	background-color: #e7fcff;
+	font-family: 'Cabin', sans-serif;
+}
+
 div#container {
-	margin: 70px 10px 10px 10px;
+	border-radius: 15px;
+	background-color: white;
+	padding: 5px 15px 20px 25px;
+	margin: 80px auto;
+	width: 95%;
 	table.form {
 		td {
 			padding: 8px 20px;
@@ -63,8 +75,8 @@ div#container {
 		margin-top: 20px;
 		td {
 			padding: 8px;
-			border-top: 1px solid black;
-			border-bottom: 1px solid black;
+			border-top: 1px solid #888;
+			border-bottom: 1px solid #888;
 		}
 		input[type=text] {
 			width: 50px;
@@ -83,8 +95,8 @@ div#container {
 			}
 		}
 		td {
-			border-top: 1px solid black;
-			border-bottom: 1px solid black;
+			border-top: 1px solid #888;
+			border-bottom: 1px solid #888;
 			padding: 8px;
 			
 		}
