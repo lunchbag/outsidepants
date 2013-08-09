@@ -17,7 +17,8 @@ class LostItemsController < ApplicationController
     if @lost_item.save
       Tracker.track('lost_items', 'Lost item recorded', {
         'product' => @lost_item.product,
-        'via' => 'web'
+        'via' => 'web',
+        'phone_number' => @lost_item.phone_number
       })
       redirect_to twilio_lost_url(:lost_item => @lost_item)
       # redirect_to root_url
