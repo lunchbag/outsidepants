@@ -19,14 +19,18 @@
 <div id="workspace">
 
 <%= render partial: "layouts/navigation" %>
+<div id="notice">
+  Official Outside Lands Lost and Found Number: 415-524-7714 (SMS only)
+</div>
+
+<% if flash[:message].present? %>
+<div id="flash">
+  <span id="flash_message"><%= flash[:message] %></span>
+</div>
+<% end %>
 
 <div id="container">
-  <span id="flash_message"><%= flash[:message] %></span>
 
-
-  <center><h1>Official Outside Lands Lost and Found Number: 415-524-7714 (SMS only)</h1></center>
-
-  <br>
 	<%= yield %>
 </div>
 

@@ -61,6 +61,27 @@ body {
 	font-family: 'Cabin', sans-serif;
 }
 
+div#notice {
+	border-radius: 15px;
+	background-color: white;
+	padding: 10px 15px 10px 25px;
+	margin: 15px auto;
+	width: 95%;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+div#flash {
+	
+	border-radius: 15px;
+	background-color: white;
+	padding: 10px 15px 10px 25px;
+	margin: 15px auto;
+	width: 95%;
+	font-size: 18px;
+	font-weight: bold;
+}
+
 div#container {
 	position: relative;
 	border-radius: 15px;

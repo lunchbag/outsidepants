@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to root_url
     else
+      flash[:message] = "Sorry, wrong username/password combination!"
       Tracker.track('sessions', 'Login fail', {
         'email' => params[:email]
       })
