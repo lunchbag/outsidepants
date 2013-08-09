@@ -59,9 +59,7 @@ class TwilioController < ApplicationController
 		body = params[:Body].downcase.strip
 		sender = params[:From]
 
-		puts body
-
-		# HELP and STOP.
+		# Keywords: LOST, ASSIST, END, INFO
 		if body.start_with?("assist")
 			puts "ASSIST"
 			response = ""
@@ -101,6 +99,7 @@ class TwilioController < ApplicationController
 			#end
 			send_sms(sender, response)
 		elsif body.start_with?("info")
+			puts "INFO"
 			body.slice! "info"
 			keywords = body.strip.delete(' ').downcase.split(/[\:\,]/)
 			found_item = FoundItem.where(item_id: keywords[0].to_i).first
@@ -117,8 +116,8 @@ class TwilioController < ApplicationController
 			end
 
 			send_sms(sender, response)
-		elsif body.start_with?("stop")
-			puts "STOP"
+		elsif body.start_with?("end")
+			puts "END"
 			response = ""
 
 			response << "You are now unsubscribed from all LOST alerts!"
@@ -138,13 +137,12 @@ class TwilioController < ApplicationController
 			if PRODUCTS.include?(keywords[0])
 				# Auto respond to sender.
 				# - 'You have successfully subscribed to lost items for keywords: '
-				# - 'Reply with ASSIST or STOP.'
 				response = "You have successfully subscribed to SMS updates for: "
 				keywords.each do |keyword|
 					response << keyword + ", "
 				end
 				response = response[0..-3]
-				response << ". Reply with ASSIST for more info or STOP to stop receiving sms."
+				response << ". Reply with ASSIST for more info or END to stop receiving sms."
 
 				# Concatenate response body to be within 160 characters.
 				send_sms(sender, response)
