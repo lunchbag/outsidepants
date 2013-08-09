@@ -1,6 +1,8 @@
 <h1>Reported Lost Items (admin only)</h1>
 
-<% if !@lost_items.blank? %>
+<% if @lost_items.blank? %>
+None yet!
+<% else %>
 <table class="item-table">
 	<thead>
 		<tr>

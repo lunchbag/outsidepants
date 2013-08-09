@@ -1,6 +1,8 @@
 <h1>Unclaimed Items</h1>
 
-<% if !@unclaimed_items.blank? %>
+<% if @unclaimed_items.blank? %>
+None yet!
+<% else %>
 <table class="item-table">
 	<thead>
 		<tr>
@@ -63,7 +65,9 @@
 <% if current_user and current_user.admin? %>
 <h1>Claimed Items (admin only)</h1>
 
-<% if !@claimed_items.blank? %>
+<% if @claimed_items.blank? %>
+None yet!
+<% else %>
 <table class="item-table">
 	<thead>
 		<tr>
@@ -117,4 +121,5 @@
 	</tbody>
 </table>
 <% end %>
+
 <% end %>
