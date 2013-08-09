@@ -7,7 +7,9 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to root_url
     else
-      Tracker.track('sessions', 'Login fail')
+      Tracker.track('sessions', 'Login fail', {
+        'email' => params[:email]
+      })
       redirect_to root_url
     end
   end
