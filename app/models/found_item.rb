@@ -40,7 +40,7 @@ class FoundItem
   	# Receives an array of keywords.
   	# Return an array of matched items (product, desc, location, created_at).
     array_of_matched_items = []
-    self.where(product: product).each do |found_item|
+    self.where(product: product, claimed_status: false).each do |found_item|
       # unless (keywords & found_item.keywords).empty?
         # item_text = 'Found: ' + found_item.product + ', ' + found_item.description # + ' at ' + found_item.location_found
         item_text = "FOUND " + found_item.product.upcase + " (" + found_item.description[0..25] + "..) " + " @" + found_item.location_found + "; text 'INFO " + found_item.item_id.to_s + "' for details."

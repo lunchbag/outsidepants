@@ -1,0 +1,61 @@
+<%= form_for @found_item do |f| %>
+	<table class="form">
+		<tr>
+			<td>
+				<%= f.label "Product" %>
+			</td>
+			<td>
+				<%= f.radio_button(:product, "phone") %>
+				<%= f.label :product_phone, "Phone" %>
+				<%= f.radio_button(:product, "wallet") %>
+				<%= f.label :product_wallet, "Wallet" %>
+				<%= f.radio_button(:product, "keys") %>
+				<%= f.label :product_keys, "Keys" %>
+				<%= f.radio_button(:product, "cards") %>
+				<%= f.label :product_cards, "Cards" %>
+				<%= f.radio_button(:product, "misc") %>
+				<%= f.label :product_misc, "Misc" %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= f.label :description %>
+			</td>
+			<td>
+				<%= f.text_field :description %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= f.label :current_location %>
+			</td>
+			<td>
+				<%= f.radio_button(:current_location, "marx meadow") %>
+				<%= f.label :current_location_marx_meadow, "Marx Meadow" %>
+				<%= f.radio_button(:current_location, "polo field") %>
+				<%= f.label :current_location_polo_field, "Polo Field" %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= f.label :location_found %>
+			</td>
+			<td>
+				<%= f.text_field :location_found %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= f.label "Upload Photo" %>
+			</td>
+			<td>
+				<%= f.file_field :image, class: "upload_image_field" %>
+			</td>
+		<tr>
+			<td></td>
+			<td>
+				<%= f.submit "Report Found Item" %>
+			</td>
+		</tr>
+	</table>
+<% end %>

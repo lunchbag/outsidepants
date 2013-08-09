@@ -16,7 +16,7 @@ gem 'activemerchant'
 
 gem 'paperclip'
 #gem 'carrierwave'
-gem 'rmagick'
+# gem 'rmagick'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -36,6 +36,8 @@ gem 'httpclient'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', require: 'bcrypt'
+
+gem 'mixpanel-ruby', require: 'mixpanel-ruby'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

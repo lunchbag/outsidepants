@@ -1,4 +1,6 @@
 class FoundItemsController < ApplicationController
+
+  # not used?
   def index
     @found_items = FoundItem.all
   end
@@ -13,7 +15,6 @@ class FoundItemsController < ApplicationController
 
   def create
     @found_item = FoundItem.new(params[:found_item])
-    #@found_item.keywords = convert_keyword_string_to_array(@found_item.keywords)
     @found_item.claimed_status = false
     @found_item.created_at = Time.now
 
@@ -28,8 +29,27 @@ class FoundItemsController < ApplicationController
       # respond_to do |format|
       #   format.html
       # end
+      Tracker.track('found_items', 'Found item recorded', {
+        'product' => @found_item.product
+      })
       redirect_to twilio_found_url(:found_item => @found_item)
       # redirect_to root_url
+    else
+      redirect_to root_url
+    end
+  end
+
+  def edit
+    # Edit the found item.
+    @found_item = FoundItem.find(params[:id])
+  end
+
+  def update
+    # Update the found item.
+    @found_item = FoundItem.find(params[:id])
+
+    if @found_item.update_attributes(params[:found_item])
+      redirect_to twilio_found_url(:found_item => @found_item)
     else
       redirect_to root_url
     end
@@ -48,6 +68,9 @@ class FoundItemsController < ApplicationController
     end
     
     if @fi.save
+      Tracker.track('found_items', 'Found item claimed', {
+        'product' => @fi.product
+      })
       redirect_to donate_url
     else
       redirect_to '#'
