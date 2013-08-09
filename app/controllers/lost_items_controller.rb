@@ -13,7 +13,6 @@ class LostItemsController < ApplicationController
 
   def create
     @lost_item = LostItem.create(params[:lost_item])
-    raise @lost_item.inspect
     # @lost_item.keywords = convert_keyword_string_to_array(@lost_item.keywords)
     if @lost_item.save
       Tracker.track('lost_items', 'Lost item recorded', {
