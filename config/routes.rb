@@ -3,8 +3,6 @@ Outsidehacks::Application.routes.draw do
   match '/logout', to: 'sessions#destroy'
   match '/signup', to: 'users#new'
   match '/donate', to: 'application#donate'
-  match '/found_items', to: 'application#home'
-  match '/lost_items', to: 'application#home'
 
   #match '/admin', to: 'users#admin'
 

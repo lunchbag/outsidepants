@@ -13,6 +13,7 @@ class LostItemsController < ApplicationController
 
   def create
     @lost_item = LostItem.create(params[:lost_item])
+    raise @lost_item.inspect
     # @lost_item.keywords = convert_keyword_string_to_array(@lost_item.keywords)
     if @lost_item.save
       Tracker.track('lost_items', 'Lost item recorded', {
@@ -22,7 +23,8 @@ class LostItemsController < ApplicationController
       redirect_to twilio_lost_url(:lost_item => @lost_item)
       # redirect_to root_url
     else
-      redirect_to root_url
+      flash[:message] = "Phone number and product must both be filled in!"
+      redirect_to new_lost_item_url
     end
   end
 

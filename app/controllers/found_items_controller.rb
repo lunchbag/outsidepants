@@ -26,7 +26,7 @@ class FoundItemsController < ApplicationController
     else
       @found_item.item_id = latest.item_id.to_i + 1
     end
-
+    
     if @found_item.save
       # respond_to do |format|
       #   format.html
