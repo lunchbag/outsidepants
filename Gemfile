@@ -35,6 +35,8 @@ gem 'httpclient'
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', require: 'bcrypt'
 
+gem 'mixpanel-ruby', require: 'mixpanel-ruby'
+
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
