@@ -135,7 +135,6 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
-    rmagick (2.13.2)
     sass (3.2.10)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -180,7 +179,6 @@ DEPENDENCIES
   paperclip
   paypal-sdk-rest
   rails (= 3.2.13)
-  rmagick
   sass-rails (~> 3.2.3)
   twilio-ruby
   uglifier (>= 1.0.3)
