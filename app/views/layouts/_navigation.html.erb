@@ -6,7 +6,7 @@
 		</b>
 	</div>
 
-<% if current_user %>
+<% if current_user and current_user.admin? %>
 	<div class="nav-item nav-link pull-left">
 		<%= link_to "Found an item?", new_found_item_url %>
 	</div>
