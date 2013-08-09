@@ -1,10 +1,5 @@
 class FoundItemsController < ApplicationController
 
-  #require 'mixpanel-ruby'
-
-  #Tracker = Mixpanel::Tracker.new("9c33be990f3f843538678ff0f984835d")
-
-
   # not used?
   def index
     @found_items = FoundItem.all
@@ -20,7 +15,6 @@ class FoundItemsController < ApplicationController
 
   def create
     @found_item = FoundItem.new(params[:found_item])
-    #@found_item.keywords = convert_keyword_string_to_array(@found_item.keywords)
     @found_item.claimed_status = false
     @found_item.created_at = Time.now
 
@@ -35,8 +29,9 @@ class FoundItemsController < ApplicationController
       # respond_to do |format|
       #   format.html
       # end
-      Tracker.track('found_items', 'Found ' + @found_item.product + ' recorded')
-      Tracker.track('found_items', 'Found item recorded')
+      Tracker.track('found_items', 'Found item recorded', {
+        'product' => @found_item.product
+      })
       redirect_to twilio_found_url(:found_item => @found_item)
       # redirect_to root_url
     else
@@ -73,8 +68,9 @@ class FoundItemsController < ApplicationController
     end
     
     if @fi.save
-      Tracker.track('found_items', 'Found ' + @fi.product + ' claimed')
-      Tracker.track('found_items', 'Found item claimed')
+      Tracker.track('found_items', 'Found item claimed', {
+        'product' => @fi.product
+      })
       redirect_to donate_url
     else
       redirect_to '#'
