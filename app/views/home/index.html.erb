@@ -1,3 +1,5 @@
 <%= render partial: "found_items/show" %>
 <br /><br />
+<% if current_user %>
 <%= render partial: "lost_items/show" %>
+<% end %>
