@@ -4,6 +4,8 @@ class LostItem
   field :phone_number, type: String
   field :keywords, type: Array
   field :product, type: String
+  validates_length_of :phone_number, :minimum => 10
+  validates_presence_of :product
 
   def self.find_numbers_by_product_and_keywords(product, keywords=[])
   	# Receives an array of keywords.
