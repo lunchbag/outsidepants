@@ -1,8 +1,12 @@
 class TwilioController < ApplicationController
+	require 'mixpanel-ruby'
+
 	TWILIO_ACCOUNT_SID = Outsidehacks::Application.config.account_sid
 	TWILIO_AUTH_TOKEN = Outsidehacks::Application.config.auth_token
 	TWILIO_PHONE_NUMBER = Outsidehacks::Application.config.phone_number
 	
+	Tracker = Mixpanel::Tracker.new("9c33be990f3f843538678ff0f984835d")
+
 	PRODUCTS = ['phone', 'wallet', 'bag', 'camera', 'keys', 'cards', 'misc']
 
 	def index
@@ -24,6 +28,7 @@ class TwilioController < ApplicationController
 
 		# Array of matched items: product, description, location.
 		array_of_matched_items.each do |matched_item|
+      Tracker.track(phone_number, 'Existing found item text sent (web)')
 			send_sms(phone_number, matched_item)
 		end
 
@@ -46,6 +51,7 @@ class TwilioController < ApplicationController
 		
 		# Send out necessary sms.
 		phone_number_arr.each do |phone_number|
+      Tracker.track(phone_number, 'New found item text sent')
 			puts "body: " + body.to_s
 			puts "phone number: " + phone_number.to_s
 			send_sms(phone_number, body)
@@ -58,9 +64,12 @@ class TwilioController < ApplicationController
 		# Receive post request from Twilio.
 		body = params[:Body].downcase.strip
 		sender = params[:From]
+		Tracker.people.set(sender)
+		Tracker.track(sender, 'Text message received')
 
 		# Keywords: LOST, ASSIST, END, INFO
 		if body.start_with?("assist")
+			Tracker.track(sender, 'ASSIST message received')
 			puts "ASSIST"
 			response = ""
 			#temp = "" + body
@@ -98,7 +107,9 @@ class TwilioController < ApplicationController
 
 			#end
 			send_sms(sender, response)
+      Tracker.track(phone_number, 'ASSIST text sent')
 		elsif body.start_with?("info")
+			Tracker.track(sender, 'INFO message received')
 			puts "INFO"
 			body.slice! "info"
 			keywords = body.strip.delete(' ').downcase.split(/[\:\,]/)
@@ -116,16 +127,20 @@ class TwilioController < ApplicationController
 			end
 
 			send_sms(sender, response)
+			Tracker.track(sender, 'INFO message sent')
 		elsif body.start_with?("end")
+			Tracker.track(sender, 'END message received')
 			puts "END"
 			response = ""
 
 			response << "You are now unsubscribed from all LOST alerts!"
 			send_sms(sender, response)
+			Tracker.track(sender, 'LOST message sent')
 			
 			# Remove phone number records from model.
 			LostItem.where(phone_number: sender).delete
 		elsif body.start_with?("lost")
+			Tracker.track(sender, 'LOST message received')
 			# User texted us keywords.
 			# LOST <CATEGORY> <KEYWORD>, <KEYWORD>
 			body.slice! "lost"
@@ -137,15 +152,16 @@ class TwilioController < ApplicationController
 			if PRODUCTS.include?(keywords[0])
 				# Auto respond to sender.
 				# - 'You have successfully subscribed to lost items for keywords: '
-				response = "You have successfully subscribed to SMS updates for: "
-				keywords.each do |keyword|
-					response << keyword + ", "
-				end
-				response = response[0..-3]
+				response = "You have successfully subscribed to SMS updates for: " 
+				response << keywords[0]				
 				response << ". Reply with ASSIST for more info or END to stop receiving sms."
+
+				Tracker.track(sender, 'Lost ' + keywords[0] + ' tracked')
+				Tracker.track(sender, 'Lost item tracked')
 
 				# Concatenate response body to be within 160 characters.
 				send_sms(sender, response)
+				Tracker.track(sender, 'LOST message sent')
 
 				# Add into the database
 				@lost_item = LostItem.create(
@@ -163,19 +179,28 @@ class TwilioController < ApplicationController
 
 				# Array of matched items: product, description, location.
 				array_of_matched_items.each do |matched_item|
+      		Tracker.track(sender, 'Existing found item text sent (text)')
 					send_sms(sender, matched_item)
 				end
 			else
+				Tracker.track(sender, 'UNRECOGNIZED lost message received')
 				text = "We weren't able to recognize your lost item inquiry. Text ASSIST to learn how to submit a lost item request."
 				# Fail, send help message to user
 				send_sms(sender, text)
+				Tracker.track(sender, 'UNRECOGNIZED lost message sent')
 			end
+		else
+			Tracker.track(sender, 'UNRECOGNIZED general message received')
+			text = "We weren't able to recognize your message. Text ASSIST to learn how to submit a lost item request."
+			send_sms(sender, text)
+			Tracker.track(sender, 'UNRECOGNIZED general message sent')
 		end
 
 		render :file => 'app/views/twilio/index.html'
 	end
 
 	def send_sms(number, body)
+		Tracker.track(sender, 'Text message sent')
 		twilio_client = Twilio::REST::Client.new TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
 		new_body = body + ""
 		for i in 0..(body.length/160)

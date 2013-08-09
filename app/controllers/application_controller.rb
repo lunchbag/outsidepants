@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   helper_method :admin_user
   helper_method :current_user
 
+  require 'mixpanel-ruby'
+
+  Tracker = Mixpanel::Tracker.new("9c33be990f3f843538678ff0f984835d")
+  
   def index
   	render "layouts/application"
   end

@@ -13,15 +13,19 @@ class TomtomController < ApplicationController
   GOOGLE_MAPS_API_KEY = "AIzaSyDOW6g8PveQM9NgbUd7R9HC9jaR7PgCJCk"
 
   def index
+
+    Tracker.track('tomtom', 'Map page loaded')
+
     return if params[:location].blank? or params[:destination].blank?
 
-
     if params[:destination] == "m"
+      Tracker.track('tomtom', 'Marx Meadow Map page loaded')
       route = params[:location] + ":" + MARX_MEADOW_INFO_BOOTH_LAT.to_s + "," + MARX_MEADOW_INFO_BOOTH_LONG.to_s
       markers = 'markers=color:blue%7Clabel:M%7C37.770825,-122.486004' +
       '&markers=color:black%7Clabel:*%7C' + params[:location]
       destination = "the Marx Meadow Information Booth"
     else
+      Tracker.track('tomtom', 'Polo Field Map page loaded')
       route = params[:location] + ":" + POLO_FIELD_INFO_BOOTH_LAT.to_s + "," + POLO_FIELD_INFO_BOOTH_LONG.to_s
       markers = '&markers=color:red%7Clabel:P%7C37.768221,-122.490489' +
       '&markers=color:black%7Clabel:*%7C' + params[:location]
@@ -54,8 +58,10 @@ class TomtomController < ApplicationController
 
       @gmaps = google_maps_url.gsub('%3A', ':')
 
+      Tracker.track('tomtom', 'API called successfully')
       #render :json => { :gmaps => google_maps_url.gsub('%3A', ':'), :time => time_away_in_minutes, :distance => meters_away_in_miles } and return
     rescue
+      Tracker.track('tomtom', 'Exception caught')
       render :json => { :error => "Error! Exception caught!", :url => url } and return
     end
 
