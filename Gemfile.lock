@@ -14,6 +14,17 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active_utils (2.0.0)
+      activesupport (>= 2.3.11)
+      i18n
+    activemerchant (1.34.0)
+      active_utils (>= 1.0.2)
+      activesupport (>= 2.3.14)
+      builder (>= 2.0.0)
+      i18n
+      json (>= 1.5.1)
+      money
+      nokogiri
     activemodel (3.2.13)
       activesupport (= 3.2.13)
       builder (~> 3.0.0)
@@ -71,6 +82,8 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.23)
     mini_portile (0.5.1)
+    money (5.1.1)
+      i18n (~> 0.6.0)
     mixpanel-ruby (1.0.0)
     mongoid (3.0.23)
       activemodel (~> 3.1)
@@ -90,6 +103,12 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
+    paypal-sdk-core (0.2.5)
+      multi_json (~> 1.0)
+      xml-simple
+    paypal-sdk-rest (0.6.0)
+      paypal-sdk-core (~> 0.2.4)
+      uuidtools (~> 2.1)
     polyglot (0.3.3)
     rack (1.4.5)
     rack-cache (1.2)
@@ -140,11 +159,13 @@ GEM
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
     uuidtools (2.1.4)
+    xml-simple (1.1.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  activemerchant
   aws-sdk (~> 1.3.4)
   bcrypt-ruby
   bson_ext
@@ -156,6 +177,7 @@ DEPENDENCIES
   mongoid (~> 3.0.0)
   mongoid-paperclip
   paperclip
+  paypal-sdk-rest
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)
   twilio-ruby
