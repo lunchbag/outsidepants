@@ -200,17 +200,21 @@ class TwilioController < ApplicationController
 	end
 
 	def send_sms(number, body)
-		Tracker.track(sender, 'Text message sent')
-		twilio_client = Twilio::REST::Client.new TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
-		new_body = body + ""
-		for i in 0..(body.length/160)
-			text = new_body[0, 160]
-			new_body.slice! text
-			twilio_client.account.sms.messages.create(
-				:from => "#{TWILIO_PHONE_NUMBER}",
-				:to   => "#{number}",
-				:body => "#{text}"
-			)
+		begin
+			twilio_client = Twilio::REST::Client.new TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
+			new_body = body + ""
+			for i in 0..(body.length/160)
+				text = new_body[0, 160]
+				new_body.slice! text
+				twilio_client.account.sms.messages.create(
+					:from => "#{TWILIO_PHONE_NUMBER}",
+					:to   => "#{number}",
+					:body => "#{text}"
+				)
+			end
+			Tracker.track(number, 'Text message sent')
+		rescue
+			Tracker.track(number, 'Text message could not be sent')
 		end
 	end
 end
