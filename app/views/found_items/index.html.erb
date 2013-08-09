@@ -22,6 +22,8 @@
 				<% if current_user %>
 					<% if current_user.admin %>
 						| <%= link_to 'Mark as Claimed', found_items_toggle_status_url(f) %>
+						<br />
+						<%= link_to 'Edit entry', edit_found_items_url(f) %>
 					<% end %>
 				<% end %>
 			<br />

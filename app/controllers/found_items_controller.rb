@@ -35,6 +35,22 @@ class FoundItemsController < ApplicationController
     end
   end
 
+  def edit
+    # Edit the found item.
+    @found_item = FoundItem.find(params[:id])
+  end
+
+  def update
+    # Update the found item.
+    @found_item = FoundItem.find(params[:id])
+
+    if @found_item.update_attributes(params[:found_item])
+      redirect_to twilio_found_url(:found_item => @found_item)
+    else
+      redirect_to root_url
+    end
+  end
+
   def destroy
     @found_item = FoundItem.find(params[:id])
   end

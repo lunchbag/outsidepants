@@ -38,9 +38,12 @@
 				<% else %>
 					Unclaimed
 					<% if !current_user.nil? and current_user.admin %>
-					<br /><%= link_to 'Mark as Claimed', found_items_toggle_status_url(f) %>
+						<br />
+						<%= link_to 'Mark as Claimed', found_items_toggle_status_url(f) %>
+						<br />
+						<%= link_to 'Edit entry', edit_found_item_url(f) %>
 					<% end %>
-				<% end %>	
+				<% end %>
 			</td>
 		</tr>
 	<% end %>
