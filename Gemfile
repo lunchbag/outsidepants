@@ -11,6 +11,8 @@ gem "mongoid-paperclip", :require => "mongoid_paperclip"
 gem 'aws-sdk', '~> 1.3.4'
 gem 'bson_ext'
 gem 'json'
+gem 'paypal-sdk-rest'
+gem 'activemerchant'
 
 gem 'paperclip'
 #gem 'carrierwave'
