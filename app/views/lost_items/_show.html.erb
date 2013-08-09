@@ -17,6 +17,9 @@
 			<td>
 				<%= l.phone_number %>
 			</td>
+			<td>
+				<%= link_to "Delete", lost_items_destroy_url(:id => l), data: { confirm: "Are you sure?" } %>
+			</td>
 		</tr>
 	<% end %>
 	</tbody>

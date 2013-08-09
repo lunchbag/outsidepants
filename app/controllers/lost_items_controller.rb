@@ -27,6 +27,16 @@ class LostItemsController < ApplicationController
   end
 
   def destroy
-    @lost_item = LostItem.find(params[:id])
+    phone_number = LostItem.where(_id: params[:id]).first.phone_number || nil
+    product = LostItem.where(_id: params[:id]).first.product || nil
+
+    Tracker.track('lost_items', 'Manually deleted', {
+      'number' => phone_number,
+      'product' => product
+    })
+    LostItem.where(_id: params[:id]).delete
+
+    flash[:message] = "Successfully unsubscribed " + phone_number + " from " + product
+    redirect_to root_url
   end
 end

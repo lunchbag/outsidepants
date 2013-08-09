@@ -21,6 +21,9 @@
 <%= render partial: "layouts/navigation" %>
 
 <div id="container">
+  <span id="flash_message"><%= flash[:message] %></span>
+
+
 	<%= yield %>
 </div>
 

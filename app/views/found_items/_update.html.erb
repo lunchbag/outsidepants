@@ -1,4 +1,23 @@
 <%= form_for @found_item do |f| %>
+We want to make sure that all items go back to their rightful owner. Please make sure not to put down <b>all</b> identifying information in this form.
+<br>
+For example:<br>
+<li> if someone turns in a <b>phone</b>, it's okay to put a description of how the phone looks since the rightful owner can prove it's theirs by inputting the correct passcode.
+
+<li> if someone turns in a piece of <b>jewelry</b>, leave out some descriptive keywords and do not take a picture.
+
+<li> if someone turns in a <b>card</b>, it's okay to describe the type (driver's license), state (California) and birth year (1985).
+
+<li> if someone turns in a <b>wallet</b> or <b>bag</b>, it's okay to describe the outer physical features of the wallet since the retriever should be able to identify its contents.
+
+<li> if someone turns in a <b>camera</b>, it's okay to describe the make and model since the owner should be able to identify pictures in it.
+
+<li> if someone turns in a set of <b>keys</b>, it's okay to describe the type of keys (cars, home, mailbox) attached, but be cautious in describing keychains and/or other identifying information.
+
+	<br>
+	<br>
+
+
 	<table class="form">
 		<tr>
 			<td>
@@ -11,6 +30,10 @@
 				<%= f.label :product_wallet, "Wallet" %>
 				<%= f.radio_button(:product, "keys") %>
 				<%= f.label :product_keys, "Keys" %>
+				<%= f.radio_button(:product, "bag") %>
+				<%= f.label :product_bag, "Bag" %>
+				<%= f.radio_button(:product, "camera") %>
+				<%= f.label :product_camera, "Camera" %>
 				<%= f.radio_button(:product, "cards") %>
 				<%= f.label :product_cards, "Cards" %>
 				<%= f.radio_button(:product, "misc") %>
@@ -23,6 +46,7 @@
 			</td>
 			<td>
 				<%= f.text_field :description %>
+				<br/><span id="description-helper"></span>
 			</td>
 		</tr>
 		<tr>
@@ -41,7 +65,7 @@
 				<%= f.label :location_found %>
 			</td>
 			<td>
-				<%= f.text_field :location_found %>
+				<%= f.text_field :location_found, :placeholder => "Back left side of Twin Peaks stage" %>
 			</td>
 		</tr>
 		<tr>
@@ -50,12 +74,61 @@
 			</td>
 			<td>
 				<%= f.file_field :image, class: "upload_image_field" %>
+				<br><span style="font-size: 12px;">Please only upload if there are other identifying information aside from what is shown in the photo.</span>
 			</td>
 		<tr>
 			<td></td>
 			<td>
-				<%= f.submit "Report Found Item" %>
+				<% if @update.present? %>
+					<%= f.submit "Update Found Item" %>
+				<% else %>
+					<%= f.submit "Report Found Item" %>
+				<% end %>
 			</td>
 		</tr>
 	</table>
 <% end %>
+
+
+<% content_for :js do %>
+
+<script type="text/javascript">
+
+	if ($("input#found_item_description").html() == "") {
+		// janky
+		$("input#found_item_product_phone").click();
+		$("#description-helper").html("Example: White iPhone 4S, no case");
+	}
+
+	$("input[name*=product]").click(function(){
+    var type = $(this).val();
+    var $description = $("#description-helper");
+    switch (type) {
+    	case 'keys':
+    		$description.html("Example: Acura car keys on keychain");
+    		break;
+    	case 'phone':
+    		$description.html("Example: White iPhone 4S, no case");
+    		break;
+    	case 'wallet':
+    		$description.html("Example: Marc Jacobs brown clutch");
+    		break;
+    	case 'cards':
+    		$description.html("Example: California Driver's License 1988");
+    		break;
+    	case 'bag':
+    		$description.html("Example: Brown Lucky Brand shoulder bag");
+    		break;
+    	case 'camera':
+    		$description.html("Example: White Nikon 10MP");
+    		break;
+    	case 'misc':
+    		$description.html("Example: Silver ring<br>(Remember not to put too much identifying information in the description in order to ensure item goes back to rightful owner!)");
+    		break;
+    }
+});
+
+</script>
+
+<% end %>
+
