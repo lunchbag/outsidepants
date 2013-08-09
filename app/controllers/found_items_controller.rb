@@ -1,4 +1,9 @@
 class FoundItemsController < ApplicationController
+
+  #require 'mixpanel-ruby'
+
+  #Tracker = Mixpanel::Tracker.new("9c33be990f3f843538678ff0f984835d")
+
   def index
     @found_items = FoundItem.all
   end
@@ -28,6 +33,8 @@ class FoundItemsController < ApplicationController
       # respond_to do |format|
       #   format.html
       # end
+      Tracker.track('found_items', 'Found ' + @found_item.product + ' recorded')
+      Tracker.track('found_items', 'Found item recorded')
       redirect_to twilio_found_url(:found_item => @found_item)
       # redirect_to root_url
     else
@@ -64,6 +71,8 @@ class FoundItemsController < ApplicationController
     end
     
     if @fi.save
+      Tracker.track('found_items', 'Found ' + @fi.product + ' claimed')
+      Tracker.track('found_items', 'Found item claimed')
       redirect_to donate_url
     else
       redirect_to '#'

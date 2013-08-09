@@ -71,6 +71,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.23)
     mini_portile (0.5.1)
+    mixpanel-ruby (1.0.0)
     mongoid (3.0.23)
       activemodel (~> 3.1)
       moped (~> 1.2)
@@ -151,6 +152,7 @@ DEPENDENCIES
   httpclient
   jquery-rails
   json
+  mixpanel-ruby
   mongoid (~> 3.0.0)
   mongoid-paperclip
   paperclip
