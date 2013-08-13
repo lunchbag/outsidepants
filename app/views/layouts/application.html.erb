@@ -36,7 +36,7 @@
 
 <%= render partial: "layouts/navigation" %>
 <div id="notice">
-  Official Outside Lands Lost and Found Number: 415-524-7714 (SMS only). Text ASSIST to get started!
+  All lost items can be reclaimed at the security desk of the Bill Graham Civic Auditorium at <a href='https://www.google.com/maps?sll=37.75769999999999%2C-122.43759999999999&sspn=0.2084825093463569%2C0.3516272431708342&t=m&ll=37.77849909999998%2C-122.41746699999995&q=99+Grove+St%2C+San+Francisco%2C+CA+94102&spn=0.006639618768941139%2C0.011200678660153894&output=classic'>99 Grove Street, San Francisco, CA, 94102</a> between 9am to 5pm during the week.
 </div>
 
 <% if flash[:message].present? %>
@@ -46,8 +46,17 @@
 <% end %>
 
 <div id="container">
-
 	<%= yield %>
+</div>
+
+<div id="contact">
+  <h3>
+    Lost? Confused? Reach us here:
+  </h3>
+  <br/>
+  Phone: (415) 237-6021
+  <br/>
+  Email: lostandfound@sfoutsidelands.com
 </div>
 
 <div style="clear;both"></div>
