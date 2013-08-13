@@ -48,6 +48,8 @@ None yet!
 						<%= link_to 'Mark as Claimed', found_items_toggle_status_url(f) %>
 						<br />
 						<%= link_to 'Edit entry', edit_found_item_url(f) %>
+						<br />
+						<%= link_to 'Delete entry', found_items_destroy_url(:id => f), data: { confirm: "Are you sure?" } %>
 					<% end %>
 				<% end %>
 			</td>

@@ -61,7 +61,9 @@ class FoundItemsController < ApplicationController
   end
 
   def destroy
-    @found_item = FoundItem.find(params[:id])
+    @found_item = FoundItem.find(params[:id]).delete
+    flash[:message] = "Item removed."
+    redirect_to root_url
   end
 
   def toggle_status

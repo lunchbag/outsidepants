@@ -2,8 +2,8 @@ class FoundItem
   include Mongoid::Document
   include Mongoid::Paperclip
   attr_accessible :claimed_status, :product, :description, :keywords, :image, :location_found, :current_location, :id
-  validates_length_of :description, :minimum => 1
-  validates_length_of :location_found, :minimum => 1
+  #validates_length_of :description, :minimum => 1
+  #validates_length_of :location_found, :minimum => 1
 
 
   field :description, type: String
