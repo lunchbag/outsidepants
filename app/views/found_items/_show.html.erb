@@ -1,5 +1,5 @@
 <h1>Unclaimed Items</h1>
-
+<span style="font-size: 16px; font-weight: bold;">Items are sorted in order by the following categories: Bag, Camera, Cards, Keys, Misc, Phones, Wallet</span>
 <% if @unclaimed_items.blank? %>
 None yet!
 <% else %>
@@ -15,7 +15,7 @@ None yet!
 		</tr>
 	</thead>
 	<tbody>
-	<% @unclaimed_items.reverse.each do |f| %>
+	<% @unclaimed_items.each do |f| %>
 		<tr>
 			<td>
 				<% if f.image.present? %>
