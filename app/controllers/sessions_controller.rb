@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
 
+  skip_before_filter :redirect_to_brb, :only => [:create]
+
   def create
     user = User.authenticate(params[:email], params[:password])
     if user
