@@ -4,6 +4,7 @@ Outsidehacks::Application.routes.draw do
   match '/signup', to: 'users#new'
   match '/not_found', to: 'application#not_found'
   match '/donate', to: 'application#donate'
+  match '/terms', to: 'application#terms'
 
   #match '/admin', to: 'users#admin'
 
